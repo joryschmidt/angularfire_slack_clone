@@ -9,10 +9,10 @@ angular.module('angularfireSlackApp')
     getDisplayName: function(userid) {
       return users.$getRecord(userid).displayName;
     },
-    all: users,
     getGravatar: function(userid) {
       return '//www.gravatar.com/avatar/' + users.$getRecord(userid).emailHash;
-    }
+    },
+    all: users
   };
   
   return Users;

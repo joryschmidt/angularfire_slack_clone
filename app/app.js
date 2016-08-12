@@ -21,14 +21,33 @@ angular
         templateUrl: 'home/home.html'
       })
       .state('login', {
-        url: '/login',
-        templateUrl: 'auth/login.html'
+        url: '/login', 
+        controller: 'AuthController as authCtrl',
+        templateUrl: 'auth/login.html',
+        resolve: {
+          requireNoAuth: function($state, Auth) {
+            return Auth.$requireAuth().then(function(auth) {
+              $state.go('home');
+            }, function(error) {
+              return;
+            });
+          }
+        }
       })
       .state('register', {
         url: '/register',
-        templateUrl: 'auth/register.html'
+        controller: 'AuthController as authCtrl',
+        templateUrl: 'auth/register.html',
+        resolve: {
+          requireNoAuth: function($state, Auth) {
+            return Auth.$requireAuth().then(function(auth) {
+              $state.go('home');
+            }, function(error) {
+              return;
+            });
+          }
+        }
       });
-
     $urlRouterProvider.otherwise('/');
-  })
-  .constant('FirebaseUrl', 'https://slack.firebaseio.com/');
+    })
+  .constant('FirebaseUrl', 'https://fireslackapplication.firebaseIO.com/');
